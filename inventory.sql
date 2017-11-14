@@ -113,13 +113,20 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `Internship_Inventory`.`InternshipSkill` ;
 
+
 CREATE TABLE IF NOT EXISTS `Internship_Inventory`.`InternshipSkill` (
   `SkillID` VARCHAR(15) NOT NULL,
   `InternshipID` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`SkillID`, `InternshipID`),
+  INDEX `InternshipID_idx` (`InternshipID` ASC),
   CONSTRAINT `SkillId`
     FOREIGN KEY (`SkillID`)
     REFERENCES `Internship_Inventory`.`Skills` (`SkillID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `InternshipSkill_Internship_InternshipID`
+    FOREIGN KEY (`InternshipID`)
+    REFERENCES `Internship_Inventory`.`Internship` (`InternshipId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
