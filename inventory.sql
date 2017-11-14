@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `Internship_Inventory`.`Company` (
   `Industry` VARCHAR(45) NOT NULL,
   `Email` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`CompanyId`))
-#  FULLTEXT INDEX `fulltextsearchIdx` USING BTREE (`CompanyName` ASC, `Industry` ASC))
+INDEX `industry` USING BTREE (`Industry` ASC))
 ENGINE = InnoDB;
 
 
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `Internship_Inventory`.`Internship` (
   PRIMARY KEY (`InternshipId`),
   INDEX `CompanyID_idx` (`CompanyID` ASC),
   UNIQUE INDEX `InternshipId_UNIQUE` (`InternshipId` ASC),
-#  FULLTEXT INDEX `fulltextsearch` USING BTREE (`StartDate` ASC, `Location` ASC, `Description` ASC, `Title` ASC, `PaidYorN` ASC),
+INDEX `title` (`Title` ASC),
   CONSTRAINT `Internship_Company_CompanyID`
     FOREIGN KEY (`CompanyID`)
     REFERENCES `Internship_Inventory`.`Company` (`CompanyId`)
