@@ -406,7 +406,7 @@ DROP TRIGGER IF EXISTS `Internship_Inventory`.`Person_AFTER_INSERT` $$
 USE `Internship_Inventory`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `Internship_Inventory`.`Person_AFTER_INSERT` AFTER INSERT ON `Person` FOR EACH ROW
 BEGIN
-update person set loginid = SUBSTRING_INDEX(`old`.`email`, '@', 1);
+update person set loginid = SUBSTRING_INDEX(`email`, '@', 1);
 END$$
 
 
@@ -415,8 +415,8 @@ DROP TRIGGER IF EXISTS `Internship_Inventory`.`Application_AFTER_UPDATE` $$
 USE `Internship_Inventory`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `Internship_Inventory`.`Application_AFTER_UPDATE` AFTER UPDATE ON `Application` FOR EACH ROW
 BEGIN
-if `old`.`hiredornot` = `HIRED` THEN
-insert into paperwork (placementid) values (old.placementid);
+if `old`.`hireornot` = `HIRED` THEN
+insert into paperwork (placementid) values (`placementid`);
 end if;
 END$$
 
