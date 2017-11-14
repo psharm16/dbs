@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `Internship_Inventory`.`Company` (
   `Description` VARCHAR(45) NOT NULL,
   `Industry` VARCHAR(45) NOT NULL,
   `Email` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`CompanyId`))
+  PRIMARY KEY (`CompanyId`),
 INDEX `industry` USING BTREE (`Industry` ASC))
 ENGINE = InnoDB;
 
