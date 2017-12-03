@@ -273,10 +273,10 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `Internship_Inventory`.`Paperwork` ;
 CREATE TABLE IF NOT EXISTS `Internship_Inventory`.`Paperwork` (
  `PlacementId` VARCHAR(15) NOT NULL,
- `StudentEvaluation` ENUM('GOOD', 'BAD', 'EXCELLENT') NOT NULL,
- `SupervisorEvaluation` ENUM('GOOD', 'BAD', 'EXCELLENT') NOT NULL,
- `CompanyInfo` VARCHAR(90) NULL,
- `StudentInfo` VARCHAR(90) NULL,
+ `StudentEvaluation` VARCHAR(45) DEFAULT 'Generate from view StudentEvaluation',
+ `SupervisorEvaluation` VARCHAR(45) DEFAULT 'Generate from view SupervisorEvaluation',
+ `CompanyInfo` VARCHAR(45) DEFAULT 'Generate from view CompanyInfo',
+ `StudentInfo` VARCHAR(45) DEFAULT 'Generate from view StudentInfo',
  PRIMARY KEY (`PlacementId`),
  UNIQUE INDEX `PlacementId_UNIQUE` (`PlacementId` ASC),
  CONSTRAINT `Placement_IDx`
@@ -352,14 +352,6 @@ INSERT INTO `internship_inventory`.`enum` (`enumID`, `content`) VALUES ('24', 'W
 INSERT INTO `internship_inventory`.`enum` (`enumID`, `content`) VALUES ('25', 'What is the name of your favorite childhood friend?');
 COMMIT;
 
-
-COMMIT;
-
-USE `Internship_Inventory` ;
--- -----------------------------------------------------
--- Placeholder table for view `Internship_Inventory`.`InternshipDetails`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Internship_Inventory`.`InternshipDetails` (`TITLE` INT, `DESCRIPTION` INT, `COMPANYNAME` INT, `NOOFOPENINGS` INT, `INDUSTRY` INT);
 -- -----------------------------------------------------
 -- procedure computeCredits
 -- -----------------------------------------------------
@@ -389,6 +381,57 @@ BEGIN
    END LOOP;
    CLOSE cur1;
 END$$
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- trigger
+-- -----------------------------------------------------
+
+
+DELIMITER $$
+
+USE `Internship_Inventory`$$
+DROP TRIGGER IF EXISTS `Internship_Inventory`.`Application_AFTER_UPDATE` $$
+USE `Internship_Inventory`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `Internship_Inventory`.`Application_AFTER_UPDATE` AFTER UPDATE ON `Application` FOR EACH ROW
+BEGIN
+if `old`.`hireornot` = `HIRED` THEN
+insert into paperwork (placementid) values (`placementid`);
+end if;
+END$$
+
+USE `Internship_Inventory`$$
+DROP TRIGGER IF EXISTS `Internship_Inventory`.`Placement_AFTER_UPDATE` $$
+USE `Internship_Inventory`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `Internship_Inventory`.`Placement_AFTER_UPDATE` AFTER UPDATE ON `Placement` FOR EACH ROW
+BEGIN
+insert into paperwork (placementid) values (old.placementid);
+END$$
+
+-- -----------------------------------------------------
+-- Trigger - Automatically add applicationID 
+-- when insert with format 'A10001'
+-- -----------------------------------------------------
+
+DELIMITER ;
+DROP TABLE IF EXISTS `Internship_Inventory`.`application_seq` ;
+CREATE TABLE application_seq
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);
+DELIMITER $$
+
+USE `Internship_Inventory`$$
+DROP TRIGGER IF EXISTS `Internship_Inventory`.`tg_applicationId_insert` $$
+CREATE TRIGGER tg_applicationId_insert
+BEFORE INSERT ON application
+FOR EACH ROW
+BEGIN
+  INSERT INTO application_seq VALUES (NULL);
+  SET NEW.applicationId = CONCAT('A1', LPAD(LAST_INSERT_ID(), 4, '0'));
+END
+$$
+
 DELIMITER ;
 
 -- -----------------------------------------------------
