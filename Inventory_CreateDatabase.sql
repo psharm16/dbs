@@ -343,11 +343,11 @@ INSERT INTO `internship_inventory`.`enum` (`enumID`, `content`) VALUES ('15', 'U
 # for enum 'security_question' in Table login
 INSERT INTO `internship_inventory`.`enum` (`enumID`, `content`) VALUES ('17', 'What is your first movie?');
 INSERT INTO `internship_inventory`.`enum` (`enumID`, `content`) VALUES ('18', 'What is your first pet\'s name?');
-INSERT INTO `internship_inventory`.`enum` (`enumID`, `content`) VALUES ('19', 'In what year was your 1father born?');
+INSERT INTO `internship_inventory`.`enum` (`enumID`, `content`) VALUES ('19', 'In what year was your father born?');
 INSERT INTO `internship_inventory`.`enum` (`enumID`, `content`) VALUES ('20', 'Where were you New Year\'s 2000?');
 INSERT INTO `internship_inventory`.`enum` (`enumID`, `content`) VALUES ('21', 'Who is your childhood hero? ');
 INSERT INTO `internship_inventory`.`enum` (`enumID`, `content`) VALUES ('22', 'What is the make and model of your first car?');
-INSERT INTO `internship_inventory`.`enum` (`enumID`, `content`) VALUES ('23', 'WWhat is your favorite sport in high school?');
+INSERT INTO `internship_inventory`.`enum` (`enumID`, `content`) VALUES ('23', 'What is your favorite sport in high school?');
 INSERT INTO `internship_inventory`.`enum` (`enumID`, `content`) VALUES ('24', 'What school did you attend for sixth grade?');
 INSERT INTO `internship_inventory`.`enum` (`enumID`, `content`) VALUES ('25', 'What is the name of your favorite childhood friend?');
 COMMIT;
@@ -429,8 +429,21 @@ FOR EACH ROW
 BEGIN
   INSERT INTO application_seq VALUES (NULL);
   SET NEW.applicationId = CONCAT('A1', LPAD(LAST_INSERT_ID(), 4, '0'));
-END
-$$
+END$$
+
+-- -----------------------------------------------------
+-- Trigger - Automatically insert paperwork 
+-- after insert placement
+-- -----------------------------------------------------
+
+USE `Internship_Inventory`$$
+DROP TRIGGER IF EXISTS `Internship_Inventory`.`PAPERWORK_INSERT_PLACEMENT` $$
+USE `Internship_Inventory`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `Internship_Inventory`.`PAPERWORK_INSERT_PLACEMENT`
+AFTER INSERT ON `placement` FOR EACH ROW
+BEGIN
+	insert into paperwork (placementid) values (new.placementid);
+END$$
 
 DELIMITER ;
 
