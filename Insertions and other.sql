@@ -109,9 +109,7 @@ START TRANSACTION;
 USE `internship_inventory`;
 INSERT INTO `internship_inventory`.`internshipskill` (`SkillID`, `InternshipID`) VALUES ('S10001', 'I101');
 INSERT INTO `internship_inventory`.`internshipskill` (`SkillID`, `InternshipID`) VALUES ('S10002', 'I201');
-INSERT INTO `internship_inventory`.`internshipskill` (`SkillID`, `InternshipID`) VALUES ('S10001', 'I201');
 INSERT INTO `internship_inventory`.`internshipskill` (`SkillID`, `InternshipID`) VALUES ('S10003', 'I301');
-INSERT INTO `internship_inventory`.`internshipskill` (`SkillID`, `InternshipID`) VALUES ('S10001', 'I401');
 INSERT INTO `internship_inventory`.`internshipskill` (`SkillID`, `InternshipID`) VALUES ('S10004', 'I401');
 COMMIT;
 -- -----------------------------------------------------
@@ -171,3 +169,13 @@ SET Name = 'Alfred Schmidt'
 WHERE ID = '10001';
 SELECT * from person;
 -- in Employee table, set "on update"*/
+
+-- -----------------------------------------------------
+-- Call procedure for enum
+-- dropdownlist1 call one by one
+-- dropdownlist1 return multipole rows 
+-- -----------------------------------------------------
+call dropdownlist1(10,@a);
+select @a;
+
+call dropdownlist2(10,12);

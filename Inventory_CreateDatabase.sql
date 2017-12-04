@@ -384,6 +384,35 @@ END$$
 DELIMITER ;
 
 -- -----------------------------------------------------
+-- procedure dropdownlist
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- procedure dropdownlist1 onebyone (loop on web)
+-- -----------------------------------------------------
+USE `Internship_Inventory`;
+DROP procedure IF EXISTS `Internship_Inventory`.`dropdownlist1`;
+DELIMITER $$
+USE `Internship_Inventory`$$
+CREATE PROCEDURE `dropdownlist1` (IN param1 INT, OUT param2 varchar(45))
+BEGIN
+	select content into param2 from enum where enumId=param1; 
+END$$
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- procedure dropdownlist2 return multiple rows
+-- -----------------------------------------------------
+USE `Internship_Inventory`;
+DROP procedure IF EXISTS `Internship_Inventory`.`dropdownlist2`;
+DELIMITER $$
+USE `Internship_Inventory`$$
+CREATE PROCEDURE `dropdownlist2` (IN paramL INT, IN paramR INT)
+BEGIN
+	select content from enum where enumId<=paramR and enumId>=paramL; 
+END$$
+DELIMITER ;
+
+-- -----------------------------------------------------
 -- trigger
 -- -----------------------------------------------------
 
@@ -458,7 +487,20 @@ select INTE.internshipID, INTE.TITLE, INTE.DESCRIPTION, CO.COMPANYNAME, INTE.NOO
 FROM COMPANY AS CO INNER JOIN INTERNSHIP AS INTE ON INTE.COMPANYID
 =CO.COMPANYID; 
 
-
+-- -----------------------------------------------------
+-- View-1 alternative
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- View-1 `Internship_Inventory`.`internshipDetails`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `Internship_Inventory`.`internshipDetails` ;
+DROP TABLE IF EXISTS `Internship_Inventory`.`internshipDetails`;
+USE `Internship_Inventory`;
+CREATE OR REPLACE VIEW `internshipDetails` AS 
+select distinct INTE.internshipID, INTE.TITLE, INTE.DESCRIPTION, skills.skillDescription, INTE.PAIDYORN, INTE.NOOFOPENINGS,CO.COMPANYNAME, CO.INDUSTRY 
+FROM COMPANY AS CO, INTERNSHIP AS INTE, skills, internshipskill
+where INTE.COMPANYID=CO.COMPANYID and INTE.internshipID = internshipskill.InternshipID and internshipskill.SkillID=skills.SkillID; 
+ 
 -- -----------------------------------------------------
 -- View-2 `Internship_Inventory`.`FallPlacement`
 -- All placements for a particular time frame-Fall
