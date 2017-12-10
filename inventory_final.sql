@@ -254,6 +254,8 @@ CREATE TABLE IF NOT EXISTS `Internship_Inventory`.`Placement` (
  `PlacementID` VARCHAR(15) NOT NULL,
  `SupervisorID` VARCHAR(15) NOT NULL DEFAULT 'ToAssign',
  `Notes` VARCHAR(45) NULL,
+ `StudentEvaluation` VARCHAR(255) DEFAULT 'TBA',
+ `SupervisorEvaluation` VARCHAR(255) DEFAULT 'TBA',
  PRIMARY KEY (`PlacementID`),
  INDEX `SupervisorID_idx` (`SupervisorID` ASC),
  CONSTRAINT `Placement_Appliction_PlacementID`
@@ -547,6 +549,7 @@ SELECT c.companyid, c.companyname, c.address, c.cell, c.description,c.email, ind
 FROM company c
 LEFT JOIN internship i ON c.companyid=i.companyid;
 
+
 -- -----------------------------------------------------
 -- View-5 `Internship_Inventory`.`SupervisorEvaluation`
 -- Supervisor's evaluation for company to review
@@ -555,12 +558,13 @@ DROP VIEW IF EXISTS `Internship_Inventory`.`SupervisorEvaluation` ;
 DROP TABLE IF EXISTS `Internship_Inventory`.`SupervisorEvaluation`;
 USE `Internship_Inventory`;
 CREATE  OR REPLACE VIEW `SupervisorEvaluation` AS
-SELECT placement.placementid, person.name as 'student_name', internship.title, semester, companyname, supervisor.supervisorid, supervisor.name as 'supervisor_name', supervisorevaluation
-FROM placement, person, internship, company,paperwork, supervisor, application, student
-WHERE supervisorevaluation IS NOT NULL AND placement.placementid=application.applicationID AND application.studentID=student.studentID AND student.studentID=person.ID AND
+SELECT placement.placementid, person.name as 'student_name', internship.title, semester, companyname, supervisor.supervisorid, supervisor.name as 'supervisor_name', Placement.SupervisorEvaluation
+FROM placement, person, internship, company, supervisor, application, student
+WHERE placement.SupervisorEvaluation IS NOT NULL AND placement.placementid=application.applicationID AND application.studentID=student.studentID AND student.studentID=person.ID AND
 application.internshipID=internship.internshipID AND internship.companyID=company.companyID AND
-placement.placementID=paperwork.placementID AND placement.supervisorID=supervisor.supervisorID 
+placement.supervisorID=supervisor.supervisorID 
 GROUP BY companyname;
+
 
 -- -----------------------------------------------------
 -- View-6 `Internship_Inventory`.`StudentEvaluation`
@@ -571,11 +575,13 @@ DROP TABLE IF EXISTS `Internship_Inventory`.`StudentEvaluation`;
 USE `Internship_Inventory`;
 CREATE  OR REPLACE VIEW `StudentEvaluation` AS
 SELECT companyname, title, semester, person.name, studentevaluation
-FROM company, internship, student, person, paperwork,placement,application
-WHERE studentevaluation IS NOT NULL AND paperwork.placementID=placement.placementid AND placement.placementID=application.applicationID AND
+FROM company, internship, student, person, placement,application
+WHERE placement.studentevaluation IS NOT NULL AND placement.placementID=application.applicationID AND
 application.studentID=student.studentID AND student.studentID=person.ID AND
 application.internshipID=internship.internshipID AND internship.companyID=company.companyID
 GROUP BY companyname;
+
+
 
 -- INSERT DATA
 -- -----------------------------------------------------
@@ -729,12 +735,14 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `internship_inventory`;
-INSERT INTO `internship_inventory`.`placement` (`PlacementID`, `SupervisorID`, `Notes`) VALUES ('A1011', 'S10001', 'Pending');
-INSERT INTO `internship_inventory`.`placement` (`PlacementID`, `SupervisorID`, `Notes`) VALUES ('A2011', 'S10002', 'Pending');
-INSERT INTO `internship_inventory`.`placement` (`PlacementID`, `SupervisorID`, `Notes`) VALUES ('A2012', 'S10001', 'Pending');
-INSERT INTO `internship_inventory`.`placement` (`PlacementID`, `SupervisorID`, `Notes`) VALUES ('A3013', 'S10002', 'Pending');
+INSERT INTO `internship_inventory`.`placement` (`PlacementID`, `SupervisorID`, `Notes`,`StudentEvaluation`,`SupervisorEvaluation`) VALUES ('A1011', 'S10001', 'Pending','Pleasant workplace','Creative');
+INSERT INTO `internship_inventory`.`placement` (`PlacementID`, `SupervisorID`, `Notes`,`StudentEvaluation`,`SupervisorEvaluation`) VALUES ('A2011', 'S10002', 'Pending','Sometimes work overtime but learn a lot of technical skills','Hardworking');
+INSERT INTO `internship_inventory`.`placement` (`PlacementID`, `SupervisorID`, `Notes`,`StudentEvaluation`,`SupervisorEvaluation`) VALUES ('A2012', 'S10001', 'Pending','','');
+INSERT INTO `internship_inventory`.`placement` (`PlacementID`, `SupervisorID`, `Notes`,`StudentEvaluation`,`SupervisorEvaluation`) VALUES ('A3013', 'S10002', 'Pending','','');
 
 COMMIT;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
