@@ -2,6 +2,11 @@ package com.uncc.internship.model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author prek7
+ *
+ */
 public class Administrator implements Serializable {
 
 	private static final long serialVersionUID = -3465813074586302847L;
