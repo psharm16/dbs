@@ -310,7 +310,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `Internship_Inventory`.`UnpaidIntern` ;
 CREATE TABLE IF NOT EXISTS `Internship_Inventory`.`UnpaidIntern` (
  `InternshipID` VARCHAR(15) NOT NULL,
- `AcademicCredit` VARCHAR(45) NOT NULL,
+ `AcademicCredit` VARCHAR(45),
  PRIMARY KEY (`InternshipID`),
  UNIQUE INDEX `InternshipID_UNIQUE` (`InternshipID` ASC),
  CONSTRAINT `Internship_IDx`
@@ -427,7 +427,7 @@ DROP TRIGGER IF EXISTS `Internship_Inventory`.`Application_AFTER_UPDATE` $$
 USE `Internship_Inventory`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `Internship_Inventory`.`Application_AFTER_UPDATE` AFTER UPDATE ON `Application` FOR EACH ROW
 BEGIN
-if `old`.`hireornot` = `HIRED` THEN
+if `old`.`hireornot` = 11 THEN
 insert into paperwork (placementid) values (`placementid`);
 end if;
 END$$
@@ -690,8 +690,11 @@ START TRANSACTION;
 USE `internship_inventory`;
 INSERT INTO `internship_inventory`.`internshipskill` (`SkillID`, `InternshipID`) VALUES ('S10001', 'I101');
 INSERT INTO `internship_inventory`.`internshipskill` (`SkillID`, `InternshipID`) VALUES ('S10002', 'I201');
+INSERT INTO `internship_inventory`.`internshipskill` (`SkillID`, `InternshipID`) VALUES ('S10001', 'I201');
 INSERT INTO `internship_inventory`.`internshipskill` (`SkillID`, `InternshipID`) VALUES ('S10003', 'I301');
+INSERT INTO `internship_inventory`.`internshipskill` (`SkillID`, `InternshipID`) VALUES ('S10001', 'I401');
 INSERT INTO `internship_inventory`.`internshipskill` (`SkillID`, `InternshipID`) VALUES ('S10004', 'I401');
+
 COMMIT;
 -- -----------------------------------------------------
 -- Data for table `internship_inventory`.`paidintern`
