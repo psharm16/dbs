@@ -363,7 +363,8 @@ USE `Internship_Inventory`$$
 CREATE PROCEDURE `computeCredits` ()
 BEGIN
    DECLARE done INT DEFAULT FALSE;
-   DECLARE stdt, endt, hours INT;
+   DECLARE stdt, endt DATE;
+   DECLARE hours INT;
    DECLARE id varchar(15);
    DECLARE cur1 CURSOR FOR SELECT
                          	INTERNSHIPID,STARTDATE,ENDDATE,HOURSPERWEEK
@@ -373,16 +374,17 @@ BEGIN
    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
    OPEN cur1;
    read_loop: LOOP
- 	FETCH cur1 INTO stdt, endt, hours,id;
+ 	FETCH cur1 INTO id, stdt, endt, hours;
    	IF done THEN
      	LEAVE read_loop;
    	END IF;
- 	UPDATE unpaidInternship SET credit = hours*(DATEDIFF(enddt,startdt)/7)*0.13
+ 	UPDATE unpaidIntern SET AcademicCredit = hours*(DATEDIFF(endt,stdt)/7)*0.13
  	WHERE internshipid=id;
    END LOOP;
    CLOSE cur1;
 END$$
 DELIMITER ;
+
 
 -- -----------------------------------------------------
 -- procedure dropdownlist
@@ -704,8 +706,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `internship_inventory`;
-INSERT INTO `internship_inventory`.`unpaidintern` (`InternshipID`, `AcademicCredit`) VALUES ('I301', '4.0');
-INSERT INTO `internship_inventory`.`unpaidintern` (`InternshipID`, `AcademicCredit`) VALUES ('I401', '3.0');
+INSERT INTO `internship_inventory`.`unpaidintern` (`InternshipID`, `AcademicCredit`) VALUES ('I301', null);
+INSERT INTO `internship_inventory`.`unpaidintern` (`InternshipID`, `AcademicCredit`) VALUES ('I401', null);
+call computeCredits();
+
 COMMIT;
 
 -- -----------------------------------------------------
@@ -754,7 +758,13 @@ SELECT * from employee;
 UPDATE person
 SET Name = 'Alfred Schmidt'
 WHERE ID = '10001';
+
 SELECT * from person;
+
+START TRANSACTION;
+
+rollback;
+
 -- in Employee table, set "on update"
 
 -- -----------------------------------------------------
@@ -766,6 +776,8 @@ call dropdownlist1(10,@a);
 select @a;
 
 call dropdownlist2(10,12);
+
+
 
 */
 
