@@ -18,14 +18,14 @@ public class InternshipServiceImpl {
               this.internshipDAO = internshipDAO;
        }
 	 @Transactional
-       public List getCompaniesIntershipOffer(String companyId) {
+       public StringBuilder getCompaniesIntershipOffer(String companyId) {
               System.out.println("In Service class...Check Login");
               return internshipDAO.getCompaniesIntershipOffer(companyId);
        }
 	 @Transactional
-	 public List getIntershipDetails(String description) {
+	 public StringBuilder getIntershipDetails(String internshipID) {
             System.out.println("In Service class...Check Login");
-            return internshipDAO.getIntershipDetails(description);
+            return internshipDAO.getIntershipDetails(internshipID);
      }
 	 
 }

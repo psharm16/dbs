@@ -18,7 +18,7 @@ import com.uncc.internship.form.InternshipDetailsReportForm;
 import com.uncc.internship.form.LoginForm;
 import com.uncc.internship.form.PersonSession;
 import com.uncc.internship.form.SearchForm;
-import com.uncc.internship.model.IntershipStudentView;
+import com.uncc.internship.model.IntershipDetailsView;
 import com.uncc.internship.service.LoginService;
 
 @Controller
@@ -59,7 +59,7 @@ public class LoginController {
 		if (userExists) {
 			
 			model.put("loginForm", loginForm);
-			List<IntershipStudentView> internship = loginService.internshipDetailsReport();
+			List<IntershipDetailsView> internship = loginService.internshipDetailsReport();
 			model.put("internForm", internship);
 			
 
@@ -90,7 +90,7 @@ public class LoginController {
 	public ModelAndView searchTitle(@ModelAttribute("searchForm") SearchForm searchForm, Map model,
 			BindingResult result) {
 
-		List<IntershipStudentView> internship = loginService.internshipDetailsReport(searchForm.getSearchField());
+		List<IntershipDetailsView> internship = loginService.internshipDetailsReport(searchForm.getSearchField());
 		if (internship != null && !internship.isEmpty()) {
 			model.put("searchForm", searchForm);
 

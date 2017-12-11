@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.uncc.internship.dao.LoginDAO;
 import com.uncc.internship.form.PersonSession;
-import com.uncc.internship.model.IntershipStudentView;
+import com.uncc.internship.model.IntershipDetailsView;
 import com.uncc.internship.model.Login;
 
 @Service("loginService")
@@ -26,12 +26,12 @@ public class LoginServiceImpl implements LoginService{
               return loginDAO.checkLogin(userName, userPassword,user);
        }
 	 @Transactional
-	 public List<IntershipStudentView> internshipDetailsReport(){
+	 public List<IntershipDetailsView> internshipDetailsReport(){
 		 System.out.println("In Service class...Check Login");
          return loginDAO.internshipDetailsReport();
 	 }
 	 @Transactional
-	 public List<IntershipStudentView> internshipDetailsReport(String searchValue){
+	 public List<IntershipDetailsView> internshipDetailsReport(String searchValue){
 		 System.out.println("In Service class...Check Login");
          return loginDAO.internshipDetailsReport(searchValue);
 	 }

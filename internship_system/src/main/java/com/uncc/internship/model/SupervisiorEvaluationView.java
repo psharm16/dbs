@@ -13,12 +13,28 @@ public class SupervisiorEvaluationView implements Serializable {
 	 * company,paperwork, supervisor, application, student
 	 */
 	private String placementID;
-	private String studentName;
+	private String student_name;
 	private String title;
 	private String semester;
 	private String companyName;
 	private String supervisorID;
-	private String supervisorName;
+	private String supervisor_name;
+	public String getStudent_name() {
+		return student_name;
+	}
+
+	public void setStudent_name(String student_name) {
+		this.student_name = student_name;
+	}
+
+	public String getSupervisor_name() {
+		return supervisor_name;
+	}
+
+	public void setSupervisor_name(String supervisor_name) {
+		this.supervisor_name = supervisor_name;
+	}
+
 	private String supervisorEvaluation;
 
 	public String getPlacementID() {
@@ -29,13 +45,7 @@ public class SupervisiorEvaluationView implements Serializable {
 		this.placementID = placementID;
 	}
 
-	public String getStudentName() {
-		return studentName;
-	}
-
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
-	}
+	
 
 	public String getTitle() {
 		return title;
@@ -69,13 +79,7 @@ public class SupervisiorEvaluationView implements Serializable {
 		this.supervisorID = supervisorID;
 	}
 
-	public String getSupervisorName() {
-		return supervisorName;
-	}
-
-	public void setSupervisorName(String supervisorName) {
-		this.supervisorName = supervisorName;
-	}
+	
 
 	public String getSupervisorEvaluation() {
 		return supervisorEvaluation;

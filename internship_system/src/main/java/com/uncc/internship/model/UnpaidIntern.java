@@ -12,4 +12,21 @@ public class UnpaidIntern implements Serializable {
 
 	private String academicCredit;
 
+	public String getInternshipID() {
+		return internshipID;
+	}
+
+	public void setInternshipID(String internshipID) {
+		this.internshipID = internshipID;
+	}
+
+	public String getAcademicCredit() {
+		return academicCredit;
+	}
+
+	public void setAcademicCredit(String academicCredit) {
+		this.academicCredit = academicCredit;
+	}
+
+
 }

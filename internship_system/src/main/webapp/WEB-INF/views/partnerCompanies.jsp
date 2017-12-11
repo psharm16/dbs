@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
@@ -6,40 +6,43 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table>
-<tbody>
-<tr><td>Partner Companies</td></tr>
-<tr> 
-     <td>Company Name</td>  
-     <td>Address</td>  
-     <td>Cell</td>  
-     <td>Industry</td>  
-    <td>Email</td>  
-     <td>Title</td>  
-     <td>Description</td>  
-     
-     <td>No Of Openings</td>  
-    
-     
-   
-    </tr> 
-    
-<c:forEach var="companiesView" items="${companiesView}"  varStatus="status">  
-    <tr>  
-    <td>${companiesView.companyName}</td>  
-     <td>${companiesView.address}</td>  
-     <td>${companiesView.cell}</td>  
-     <td>${companiesView.industry}</td>  
-    <td>${companiesView.email}</td>  
-     <td>${companiesView.title}</td>  
-     <td>${companiesView.description}</td>  
-     
-     <td>${companiesView.noOfOpenings}</td>  
-    
-   
-    </tr>  
-   </c:forEach> 
-   </tbody> 
-   </table>
+	<table>
+		<tbody>
+			<tr>
+				<td>Partner Companies</td>
+			</tr>
+			<tr>
+				<td>Company Name</td>
+				<td>Address</td>
+				<td>Cell</td>
+				<td>Industry</td>
+				<td>Email</td>
+				<td>Title</td>
+				<td>Description</td>
+
+				<td>No Of Openings</td>
+
+
+
+			</tr>
+
+			<c:forEach var="companiesView" items="${companiesView}"
+				varStatus="status">
+				<tr>
+					<td>${companiesView.companyName}</td>
+					<td>${companiesView.address}</td>
+					<td>${companiesView.cell}</td>
+					<td>${companiesView.industry}</td>
+					<td>${companiesView.email}</td>
+					<td>${companiesView.title}</td>
+					<td>${companiesView.description}</td>
+
+					<td>${companiesView.noOfOpenings}</td>
+
+
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 </body>
 </html>

@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.uncc.internship.form.InternshipDetailsReportForm;
 import com.uncc.internship.form.LoginForm;
-import com.uncc.internship.model.IntershipStudentView;
+import com.uncc.internship.model.IntershipDetailsView;
 import com.uncc.internship.service.InternshipService;
 import com.uncc.internship.service.LoginService;
 
@@ -31,10 +31,23 @@ public class InternshipController {
 	
 	
 	
-	@RequestMapping(value = " /internshipdetails/{description}", method=RequestMethod.GET)
-    public ModelAndView listInternshipDetails(@PathVariable("description")String description, Model model) {
-		List internshipDetail=internshipService.getIntershipDetails(description);
-            int id = 2323;  // Currently passing static values for testing
+	@RequestMapping(value = " /internshipdetails/{internshipID}", method=RequestMethod.POST)
+    public ModelAndView listInternshipDetails(@PathVariable("internshipID")String internshipID, Model model) {
+		StringBuilder internshipDetail=internshipService.getIntershipDetails(internshipID);
+            
+            model.addAttribute("internshipDetail", internshipDetail);
+            model.addAttribute("internshipID", internshipID);
+            ModelAndView modelinternDetail = new ModelAndView("internshipdetail","internshipDetail",internshipDetail);
+			
+           
+			 logger.info(modelinternDetail.getViewName());
+		     return modelinternDetail;
+            
+        }
+	@RequestMapping(value = " /internshipdetails/{companyID}", method=RequestMethod.POST)
+    public ModelAndView getCompaniesIntershipOffer(@PathVariable("companyID")String companyID, Model model) {
+		StringBuilder internshipDetail=internshipService.getCompaniesIntershipOffer(companyID);
+            
             model.addAttribute("internshipDetail", internshipDetail);
             ModelAndView modelinternDetail = new ModelAndView("internshipdetail","internshipDetail",internshipDetail);
 			
@@ -43,6 +56,5 @@ public class InternshipController {
 		     return modelinternDetail;
             
         }
-	
 	
 }

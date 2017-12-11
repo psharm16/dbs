@@ -4,7 +4,15 @@ public class PersonSession {
 
 	private String username;
 	private int access_rights;
+	private boolean isStudent;
 	
+	
+	public boolean isStudent() {
+		return isStudent;
+	}
+	public void setStudent(boolean isStudent) {
+		this.isStudent = isStudent;
+	}
 	public String getUsername() {
 		return username;
 	}
