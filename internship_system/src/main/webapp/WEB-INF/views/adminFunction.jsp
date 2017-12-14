@@ -6,6 +6,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%@include file="header.jsp"%>
+todo
+<%@include file="footer.jsp"%>
 </body>
 </html>

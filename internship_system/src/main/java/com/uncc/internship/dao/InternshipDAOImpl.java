@@ -31,14 +31,14 @@ public class InternshipDAOImpl implements InternshipDAO {
 
 		String sql = "SELECT * FROM internship LEFT JOIN (company)"
 				+ " ON (company.CompanyId=internship.CompanyID) where internship.internshipId ='" + internshipID
-				+ "'; '";
+				+ "'";
 		return getDetails(sql);
 	}
 
 	@Override
 	public StringBuilder getCompaniesIntershipOffer(String companyId) {
 		String sql = "SELECT * FROM internship LEFT JOIN (company)" + " ON (company.CompanyId=internship.CompanyID)"
-				+ " where internship.companyid = '" + companyId + "';";
+				+ " where internship.companyid = '" + companyId + "'";
 
 		return getDetails(sql);
 	}
@@ -72,17 +72,21 @@ public class InternshipDAOImpl implements InternshipDAO {
 		}
 		String details = null;
 		if (paid.equalsIgnoreCase("Y")) {
-			details = "SELECT * FROM paidintern where " + " where paidintern.InternshipID ='" + internshipID + "';";
+			details = "SELECT * FROM paidintern where paidintern.InternshipID ='" + internshipID + "'";
 			List<PaidIntern> paidIntern = template.query(details, new BeanPropertyRowMapper(PaidIntern.class));
+			if(paidIntern!=null && !paidIntern.isEmpty()) {
 			result.append("\nWork Type :"+paidIntern.get(0).getWorkType());
 			result.append("\nTotal Salary :" +paidIntern.get(0).getTotalSalary());
+			}
 		} else {
-			details = "SELECT * FROM unpaidintern where " + " where unpaidintern.InternshipID ='" + internshipID + "';";
+			details = "SELECT * FROM unpaidintern where unpaidintern.InternshipID ='" + internshipID + "'";
 			List<UnpaidIntern> unPaidIntern = template.query(details, new BeanPropertyRowMapper(UnpaidIntern.class));
+			if (unPaidIntern!=null && !unPaidIntern.isEmpty()) {
 			result.append("\nAcademic Credit :"+unPaidIntern.get(0).getAcademicCredit());
+			}
 		}
 		String skills = "select skills.SkillDescription from skills,internshipskill where"
-				+ "skills.SkillID=internshipskill.SkillID and internshipskill.InternshipID='" + internshipID + "';";
+				+ "skills.SkillID=internshipskill.SkillID and internshipskill.InternshipID='" + internshipID + "'";
 		List<Skills> skillsList = template.query(skills, new BeanPropertyRowMapper(Skills.class));
 		result.append("\nSkills :");
 		for (Skills skill : skillsList) {

@@ -1,12 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
+	<%@include file="header.jsp"%>
 	<table>
 		<tbody>
 			<tr>
@@ -18,10 +18,12 @@
 								Position</u></b></td>
 				</tr>
 			</c:if>
-			<c:out value="${internshipDetail}" />
+			<tr>
+				<td><c:out value="${internshipDetail}" /></td>
+			</tr>
 			<tr>
 				<c:if test="${user.isStudent}">
-					<c:if test="${msg}!='applied'">
+					<c:if test="${msg!='Applied'}">
 						<td><form:form method="post"
 								action="/internship_system/apply.html" param="${internshipID}">
 								<table>
@@ -35,5 +37,6 @@
 			</tr>
 		</tbody>
 	</table>
+	<%@include file="footer.jsp"%>
 </body>
 </html>

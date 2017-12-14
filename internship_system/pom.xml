@@ -149,6 +149,11 @@
             <version>${jsp-version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+    <groupId>javax.validation</groupId>
+    <artifactId>validation-api</artifactId>
+    <version>1.1.0.Final</version>
+</dependency>
   
         <!-- JSTL dependency -->
         <dependency>
@@ -156,7 +161,13 @@
             <artifactId>jstl</artifactId>
             <version>${jstl-version}</version>
         </dependency>
-	
+        
+
+<dependency>
+	<groupId>taglibs</groupId>
+	<artifactId>standard</artifactId>
+	<version>1.1.2</version>
+</dependency>
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

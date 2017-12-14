@@ -7,10 +7,10 @@ public class PersonSession {
 	private boolean isStudent;
 	
 	
-	public boolean isStudent() {
+	public boolean getIsStudent() {
 		return isStudent;
 	}
-	public void setStudent(boolean isStudent) {
+	public void setIsStudent(boolean isStudent) {
 		this.isStudent = isStudent;
 	}
 	public String getUsername() {

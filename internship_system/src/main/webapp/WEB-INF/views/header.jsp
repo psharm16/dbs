@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form method="post" action="/internship_system/account.html">
+<form:form method="post" action="/internship_system/account.html">
 		<table>
 			<tr>
 				<td><h3>
@@ -14,11 +14,20 @@
 						<c:out value="${user.userName}" />
 					</h3></td>
 				<td><input type="button" value="ACCOUNT DETAILS" /></td>
-				
+
 			</tr>
 		</table>
 	</form:form>
-	<%@include file="reports.jsp"%>
+	<form:form method="post" action="/internship_system/logout.html">
+		<table>
+			<tr>
+
+				<td><input type="submit" value="logout" /></td>
+
+			</tr>
+		</table>
+	</form:form>-->
+	 <%@include file="reports.jsp"%>
 
 
 	<c:if test="${user.access_rights} == '14'">

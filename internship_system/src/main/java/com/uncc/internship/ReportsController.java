@@ -18,43 +18,40 @@ import com.uncc.internship.service.ReportsService;
 
 @Controller
 public class ReportsController {
-	
+
 	@Autowired
 	public ReportsService reportsService;
-private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	 @RequestMapping(value = "/reports.html", method = RequestMethod.GET)
+	@RequestMapping(value = "/reports.html", method = RequestMethod.GET)
 	public ModelAndView home() {
-		 logger.info("reports");
-		 ModelAndView model = new ModelAndView("reports");
-	     return model;
+		logger.info("reports");
+		ModelAndView model = new ModelAndView("reports");
+		return model;
 	}
-	
-	 @RequestMapping(value = "/reports.html", method = RequestMethod.POST, params="placement")
-	   public ModelAndView placementView(@RequestParam Map<String,String> req) {
-		 logger.info("fallPlacement");
-		
-		 
-			List<FallPlacementView> placementView = reportsService.placementView();
-			 ModelAndView model = new ModelAndView("fallPlacement","placementview",placementView);
 
-			
+	@RequestMapping(value = "/reports.html", method = RequestMethod.POST, params = "placement")
+	public ModelAndView placementView(@RequestParam Map<String, String> req) {
+		logger.info("fallPlacement");
 
-			logger.info(model.getViewName());
-			return model;
-		 
-		 
-	   }
-	 @RequestMapping(value = "/reports.html", method = RequestMethod.POST, params="companies")
-	   public ModelAndView companiesView(@RequestParam Map<String,String> req) {
-		 logger.info("partnerCompanies");
-		 List<CompanyInfoView> companiesView = reportsService.companiesView();
-		 ModelAndView model = new ModelAndView("partnerCompanies","companiesView",companiesView);
-		 
-		 logger.info(model.getViewName());
-	     return model;
-	   }
+		List<FallPlacementView> placementView = reportsService.placementView();
+		ModelAndView model = new ModelAndView("fallPlacement", "placementview", placementView);
+
+		logger.info(model.getViewName());
+		return model;
+
+	}
+
+	@RequestMapping(value = "/reports.html", method = RequestMethod.POST, params = "companies")
+	public ModelAndView companiesView(@RequestParam Map<String, String> req) {
+		logger.info("partnerCompanies");
+		List<CompanyInfoView> companiesView = reportsService.companiesView();
+		ModelAndView model = new ModelAndView("partnerCompanies", "companiesView", companiesView);
+
+		logger.info(model.getViewName());
+		return model;
+	}
 }

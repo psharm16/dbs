@@ -6,6 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@include file="header.jsp"%>
 	<table>
 		<tr>
 			<td>applicationID</td>
@@ -39,5 +40,6 @@
 			<td>
 		</tr>
 	</table>
+	<%@include file="footer.jsp"%>
 </body>
 </html>

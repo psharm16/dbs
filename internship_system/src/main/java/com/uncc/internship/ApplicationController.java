@@ -49,7 +49,7 @@ public class ApplicationController {
 	public String processForm(@ModelAttribute("applyForm") ApplyForm applyForm,
 			@ModelAttribute("user") PersonSession user, @PathVariable("applicationID") String applicationID, Map model,
 			BindingResult result) {
-		logger.info("apply" + user.getUsername());
+		logger.info("apply" + user.getUsername() + ":" + applicationID);
 
 		boolean applied = applicationService.applyForInternship(user.getUsername(), applicationID);
 		if (applied) {

@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -24,30 +22,26 @@ import com.uncc.internship.form.LoginForm;
  */
 @Controller
 public class HomeController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	 @RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home() {
-		 logger.info("home");
-		 ModelAndView model = new ModelAndView("home");
-	     return model;
+		logger.info("home");
+		ModelAndView model = new ModelAndView("home");
+		return model;
 	}
-	
-	 @RequestMapping(value = "/submitHome.html", method = RequestMethod.POST)
-	   public ModelAndView login(@RequestParam Map<String,String> req) {
-		 logger.info("login");
-		 ModelAndView model = new ModelAndView("loginform");
-		 
-		 logger.info(model.getViewName());
-	     return model;
-	   }
-	
-	
-	
-	
-	
+
+	@RequestMapping(value = "/submitHome.html", method = RequestMethod.POST)
+	public ModelAndView login(@RequestParam Map<String, String> req) {
+		logger.info("login");
+		ModelAndView model = new ModelAndView("loginform");
+
+		logger.info(model.getViewName());
+		return model;
+	}
+
 }

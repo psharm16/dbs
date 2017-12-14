@@ -3,7 +3,6 @@ package com.uncc.internship;
 import java.util.List;
 import java.util.Map;
 
-import org.jboss.security.auth.spi.Users.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,35 +25,32 @@ import com.uncc.internship.service.LoginService;
 public class InternshipController {
 	@Autowired
 	public InternshipService internshipService;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(InternshipController.class);
-	
-	
-	
-	@RequestMapping(value = " /internshipdetails/{internshipID}", method=RequestMethod.POST)
-    public ModelAndView listInternshipDetails(@PathVariable("internshipID")String internshipID, Model model) {
-		StringBuilder internshipDetail=internshipService.getIntershipDetails(internshipID);
-            
-            model.addAttribute("internshipDetail", internshipDetail);
-            model.addAttribute("internshipID", internshipID);
-            ModelAndView modelinternDetail = new ModelAndView("internshipdetail","internshipDetail",internshipDetail);
-			
-           
-			 logger.info(modelinternDetail.getViewName());
-		     return modelinternDetail;
-            
-        }
-	@RequestMapping(value = " /internshipdetails/{companyID}", method=RequestMethod.POST)
-    public ModelAndView getCompaniesIntershipOffer(@PathVariable("companyID")String companyID, Model model) {
-		StringBuilder internshipDetail=internshipService.getCompaniesIntershipOffer(companyID);
-            
-            model.addAttribute("internshipDetail", internshipDetail);
-            ModelAndView modelinternDetail = new ModelAndView("internshipdetail","internshipDetail",internshipDetail);
-			
-           
-			 logger.info(modelinternDetail.getViewName());
-		     return modelinternDetail;
-            
-        }
-	
+
+	@RequestMapping(value = "/internshipdetails/{internshipID}", method = RequestMethod.POST)
+	public ModelAndView listInternshipDetails(@PathVariable("internshipID") String internshipID, Model model) {
+		StringBuilder internshipDetail = internshipService.getIntershipDetails(internshipID);
+
+		model.addAttribute("internshipDetail", internshipDetail);
+		model.addAttribute("internshipID", internshipID);
+		ModelAndView modelinternDetail = new ModelAndView("internshipdetails", "internshipDetail", internshipDetail);
+
+		logger.info(modelinternDetail.getViewName());
+		return modelinternDetail;
+
+	}
+
+	@RequestMapping(value = "/internshipdetails/{companyID}", method = RequestMethod.POST)
+	public ModelAndView getCompaniesIntershipOffer(@PathVariable("companyID") String companyID, Model model) {
+		StringBuilder internshipDetail = internshipService.getCompaniesIntershipOffer(companyID);
+
+		model.addAttribute("internshipDetail", internshipDetail);
+		ModelAndView modelinternDetail = new ModelAndView("internshipdetails", "internshipDetail", internshipDetail);
+
+		logger.info(modelinternDetail.getViewName());
+		return modelinternDetail;
+
+	}
+
 }

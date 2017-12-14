@@ -6,7 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%@include file="header.jsp"%>
 	<form:form action="/internship_system/paperwork.html" method="post">
 		<table>
 			<tr>
@@ -51,5 +51,6 @@
 			</tr>
 		</table>
 	</form:form>
+	<%@include file="footer.jsp"%>
 </body>
 </html>
